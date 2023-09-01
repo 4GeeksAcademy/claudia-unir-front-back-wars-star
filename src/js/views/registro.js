@@ -16,7 +16,7 @@ export const Registro = () => {
     return (
         <div className= "d-flex justify-content-center" >
 
-        <form>
+    <form className="bg-white p-3 rounded-3">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email address</label>
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
