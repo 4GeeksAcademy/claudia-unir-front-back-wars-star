@@ -40,7 +40,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					})
 					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
-					//guardamos el token en el navegador
+					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
+					// localStorage.setItem("token", data.data.access_token);
 					
 					return true;
 					
@@ -55,6 +56,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 				}				
 			},
+
+//mi funcion para signup
+			signup: async (email, password) => {
+				try {
+					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/signup",{   //acá uno con el back
+						"email": email,
+						"password": password
+					
+					})
+					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
+					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
+					// localStorage.setItem("token", data.data.access_token);
+					
+					return true;
+					
+				} catch (error) {
+					console.log(error);
+					if (error.response.status === 404) {
+						alert(error.response.data.msg)
+					}
+
+
+					return false;
+					
+				}				
+			},
+
 			loadSomeData: () => {
 
 			},
