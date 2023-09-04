@@ -18,12 +18,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			], 
+			],
 
 			characters: []
 			,
 
-			vehiculos: []
+			vehiculos: [],
+
+			autenticar: false
 
 		},
 		actions: {
@@ -31,20 +33,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-// mi funcion para login
+			// mi funcion para login
 			login: async (email, password) => {
 				try {
-					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/login",{   //acá uno con el back
+					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/login", {   //acá uno con el back
 						"email": email,
 						"password": password
-					
+
 					})
 					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
 					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
-					// localStorage.setItem("token", data.data.access_token);
-					
+					localStorage.setItem("token", data.data.access_token);
+
 					return true;
-					
+
 				} catch (error) {
 					console.log(error);
 					if (error.response.status === 404) {
@@ -53,24 +55,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					return false;
-					
-				}				
+
+				}
 			},
+			// mi funcion para validar token
+			validoToken: async () => {
+				let token = localStorage.getItem("token")
+				try {
+					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/valid_token", {   //acá uno con el back
+						headers: { 'Authorization': 'Bearer ' + token }
+
+					})
+					console.log(data);     //me muestra data en la consola es donde está guardado el token
+					setStore({ autenticar: true })
+					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
+					// localStorage.setItem("token", data.data.access_token);
+
+					return true;
+
+				} catch (error) {
+					console.log(error);
+					if (error.response.status === 401) {
+						setStore({ autenticar: false })
+						alert(error.response.data.msg)
+					}
+					return false;
+
+				}
+			},
+
+			// mi funcion logout
+			LogOut: async () => {
+				localStorage.removeItem("token")
+				setStore({ autenticar: true })
+			},
+
+
 
 //mi funcion para signup
 			signup: async (email, password) => {
 				try {
-					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/signup",{   //acá uno con el back
+					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/signup", {   //acá uno con el back
 						"email": email,
 						"password": password
-					
+
 					})
 					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
 					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
 					// localStorage.setItem("token", data.data.access_token);
-					
+
 					return true;
-					
+
 				} catch (error) {
 					console.log(error);
 					if (error.response.status === 404) {
@@ -79,8 +114,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					return false;
-					
-				}				
+
+				}
 			},
 
 			loadSomeData: () => {
@@ -115,11 +150,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let response = await fetch("https://swapi.dev/api/people"); //especificamos la url donde vamos a buscar info
 					let data = await response.json()
 					console.log(data);
-					setStore({characters: data.results})
-					
+					setStore({ characters: data.results })
+
 				} catch (error) {
 					console.log(error)
-					
+
 				}
 			},
 			obtenerplanetas: async function () {
@@ -135,18 +170,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			agregarFavorito: (name) => {
-				
-			
+
+
 				setStore({ favoritos: [...getStore().favoritos, name] });
-								
-					
-			
+
+
+
 			},
-			eliminarFavorito:(name)=>{
-				const arr= getStore().favoritos.filter((name2)=>
-				name2!==name)
-				setStore({ favoritos: arr});
-				
+			eliminarFavorito: (name) => {
+				const arr = getStore().favoritos.filter((name2) =>
+					name2 !== name)
+				setStore({ favoritos: arr });
+
 			},
 			getDetails: async (type, id) => {
 				/**

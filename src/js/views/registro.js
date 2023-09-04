@@ -23,6 +23,7 @@ export const Registro = () => {
 
     <form onSubmit={handleSubmit} className="bg-white p-3 rounded-3">
         <div class="mb-3">
+          <h1>Registrarse</h1>
           <label for="exampleInputEmail1" class="form-label">Email address</label>
           <input type="email" onChange={function (e) { setEmail(e.target.value) }}class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>

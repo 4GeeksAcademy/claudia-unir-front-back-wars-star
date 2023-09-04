@@ -11,9 +11,9 @@ export const Demo = () => {
 
 //	Para guardar en el localStorage el token
 
-	// useEffect (()=> {
-	// 	actions.obtener_favorito()
-	// }, [])
+	useEffect (()=> {
+		// actions.obtener_favorito()
+	}, [])
 
 	return (
 		<div className="container">

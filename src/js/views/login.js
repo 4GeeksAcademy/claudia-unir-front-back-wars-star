@@ -14,7 +14,7 @@ export const Login = () => {
       e.preventDefault()
       let logged = await actions.login(email, password)
       if (logged === true) {
-      navigate("/demo")
+      navigate("/")
       }
     }
 
@@ -23,6 +23,7 @@ export const Login = () => {
 
         <form onSubmit={handleSubmit} className="bg-white p-3 rounded-3 w-50 mx-auto">
         <div class="mb-3 ">
+          <h1>Login</h1>
           <label for="exampleInputEmail1" class="form-label">Email</label>
           <input type="email" onChange={function (e) { setEmail(e.target.value) }} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
           <div id="emailHelp" class="form-text">No compartiremos tu email.</div>
