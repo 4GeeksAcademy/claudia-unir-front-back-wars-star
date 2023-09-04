@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -29,6 +31,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+// mi funcion para login
+			login: async (email, password) => {
+				try {
+					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/login",{   //acá uno con el back
+						"email": email,
+						"password": password
+					
+					})
+					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
+					//guardamos el token en el navegador
+					
+					return true;
+					
+				} catch (error) {
+					console.log(error);
+					if (error.response.status === 404) {
+						alert(error.response.data.msg)
+					}
+
+
+					return false;
+					
+				}				
+			},
+			loadSomeData: () => {
+
+			},
+
 			obtenerVehiculosClaudia: async () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))

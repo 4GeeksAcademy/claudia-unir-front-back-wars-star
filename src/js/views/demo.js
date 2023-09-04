@@ -7,6 +7,13 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
+	
+
+//	Para guardar en el localStorage el token
+
+	// useEffect (()=> {
+	// 	actions.obtener_favorito()
+	// }, [])
 
 	return (
 		<div className="container">
