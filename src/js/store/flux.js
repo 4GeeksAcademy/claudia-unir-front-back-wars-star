@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			// mi funcion para login
+// mi funcion para login
 			login: async (email, password) => {
 				try {
 					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/login", {   //acá uno con el back
@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}
 			},
-			// mi funcion para validar token
+// mi funcion para validar token
 			validoToken: async () => {
 				let token = localStorage.getItem("token")
 				try {
@@ -86,8 +86,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}
 			},
+// mostrar los favoritos del usuario
+			mostrarfavoritos: async () => {
+				let token = localStorage.getItem("token")
+				try {
+					let data = await axios.get("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/usuario/favorito", {   //acá uno con el back
+						headers: { 'Authorization': 'Bearer ' + token }
 
-			// mi funcion logout
+					})
+				
+			setStore({ favoritos: data.data.results });
+			return true;
+				} catch (error) {
+				console.log(error);
+				
+				return false;
+
+			}
+		},
+
+// mi funcion logout
 			LogOut: async () => {
 				localStorage.removeItem("token")
 				setStore({ autenticar: false })
@@ -103,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"password": password
 
 					})
-					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
+					     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
 					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
 					// localStorage.setItem("token", data.data.access_token);
 
@@ -135,7 +153,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					let data = await response.json();
-					console.log(data.results);
+					
 					setStore({ vehiculos: data.results });
 
 
@@ -152,7 +170,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					let response = await fetch("https://swapi.dev/api/people"); //especificamos la url donde vamos a buscar info
 					let data = await response.json()
-					console.log(data);
+					
 					setStore({ characters: data.results })
 
 				} catch (error) {
@@ -166,7 +184,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let response = await fetch("https://swapi.dev/api/planets"); //esto me regresa una respuesta, que la guerdo en un espacio de memoira
 					//le digo que espere por esa respuesta
 					let data = await response.json(); //le digo que convierta esa respuesta en un jason y lo guardo en un espacio de memoira y que espere por la convercion de esa respuesta
-					console.log(data);
+					
 					setStore({ Planets: data.results }); //({propiedad:el valor que quiero actuaizar})
 				} catch (error) {
 					console.log(error);
