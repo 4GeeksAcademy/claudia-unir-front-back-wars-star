@@ -44,6 +44,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);     //me muestra data en la consola es donde está guardado el token ahora remplazo data por
 					// //guardamos el token en el navegador en un espacio de memoria para usarlo cuando lo necesite
 					localStorage.setItem("token", data.data.access_token);
+					setStore({ autenticar: true })
+
+
 
 					return true;
 
@@ -87,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// mi funcion logout
 			LogOut: async () => {
 				localStorage.removeItem("token")
-				setStore({ autenticar: true })
+				setStore({ autenticar: false })
 			},
 
 

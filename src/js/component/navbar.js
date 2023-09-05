@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
+
 import navbar from "../../styles/navbar.css";
 export const Navbar = () => {
 
   const { store, actions } = useContext(Context);
   const [listaFavoritos, setlistafavoritos] = useState([])
+  const navigate =useNavigate();
+
   useEffect(function () {
     //  setlistafavoritos(store.favoritos)
 
@@ -17,8 +21,6 @@ export const Navbar = () => {
   const handleLogout =  () => {
     actions.LogOut()
     navigate("/login")
-
-
   }
 
   return (
