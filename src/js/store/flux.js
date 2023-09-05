@@ -65,7 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			validoToken: async () => {
 				let token = localStorage.getItem("token")
 				try {
-					let data = await axios.post("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/valid_token", {   //acá uno con el back
+					let data = await axios.get("https://vigilant-sniffle-x5ww77qq6gv7fwg7-3000.app.github.dev/valid_token", {   //acá uno con el back
 						headers: { 'Authorization': 'Bearer ' + token }
 
 					})
